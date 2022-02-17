@@ -18,7 +18,7 @@ shared_resource_groups            = ["devsecops"]
 k8s_sku = "Free"
 
 bool_k8s_iag_enabled  = true
-k8s_node_disk_size = 60
+k8s_node_disk_size = 128
 enable_azure_policy = true
 
 enable_private_cluster = true
@@ -48,7 +48,8 @@ k8s_keyvault_secret_rotation_interval = "3m"
 #                         K8s Permissions Vars               #
 ##############################################################
 enable_k8s_permissions = true
-k8s_cluster_permissions_assignment = "3689b6dd-e9b9-48aa-9903-8d23750890b0"
+k8s_rbac_admin_group_name = "Team - DevSecOps"
+#k8s_cluster_permissions_assignment = "3689b6dd-e9b9-48aa-9903-8d23750890b0"
 aad_user_or_group_objectIDs = ["3689b6dd-e9b9-48aa-9903-8d23750890b0"]
 
 ##############################################################
@@ -57,7 +58,7 @@ aad_user_or_group_objectIDs = ["3689b6dd-e9b9-48aa-9903-8d23750890b0"]
 use_auto_scale = true
 auto_scale_min_nodes = 2
 auto_scale_max_nodes = 10
-auto_scale_node_vm_size = "Standard_D2_V5"
+auto_scale_node_vm_size = "Standard_D2_v5"
 
 ##############################################################
 #                         Key Vault Vars                     #

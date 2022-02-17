@@ -16,6 +16,10 @@
           source = "hashicorp/azurerm"
           version = "2.90.0"
       }
+      azuread = {
+        source = "hashicorp/azuread"
+        version = "~> 2.15.0"
+      }
   }
 }
 
@@ -34,4 +38,8 @@ provider "azurerm" {
   
   subscription_id = "8c99c5b5-3384-4bb3-ba5b-f8e259bd2170"   #k8s sub
 
+}
+
+provider "azuread" {
+  tenant_id = "bd0c095f-5d66-4273-a209-64796ae91974"
 }

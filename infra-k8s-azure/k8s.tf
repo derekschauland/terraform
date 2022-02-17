@@ -2,7 +2,7 @@ module "k8s_cluster" {
   #old source = "gitlab.zywave.com/devsecops/terraform/k8scluster"
   #old version = "1.0.0-rc.48"
   source = "gitlab.com/zywave/terraform/k8scluster"
-  version = "1.0.0-rc.99"
+  version = "1.0.0-rc.118"
   #source = "git::ssh://git@gitlab.zywave.com:/schauland/terraform-azurerm-k8scluster.git"
 
    k8s_name                               = local.k8s_name
@@ -13,7 +13,8 @@ module "k8s_cluster" {
 
    enable_k8s_permissions                 = var.enable_k8s_permissions
    
-   k8s_cluster_permissions_assignment     = var.k8s_cluster_permissions_assignment
+   k8s_cluster_permissions_assignment     = data.azuread_group.dso.object_id #var.k8s_cluster_permissions_assignment
+#   k8s_cluster_permissions_assignment     = var.k8s_cluster_permissions_assignment
    k8s_auto_upgrade                       = var.enable_k8s_autoupgrade
    k8s_autoupgrade_channel                = var.k8s_autoupgrade_channel
    os_disk_size                           = var.k8s_node_disk_size

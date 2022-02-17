@@ -797,3 +797,8 @@ variable "az_sql_audit_retention_days" {
     description = "number of days to keep audit data"
     default = 30
 }
+
+variable "k8s_rbac_admin_group_name" {
+    description = "admin group name"
+    default = ""
+}
