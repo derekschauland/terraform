@@ -1,9 +1,9 @@
 
     terraform {
     backend "http" {
-      address="https://gitlab.com/api/v4/projects/31744272/terraform/state/infra-k8s-azure"
-      lock_address="https://gitlab.com/api/v4/projects/31744272/terraform/state/infra-k8s-azure/lock"
-      unlock_address="https://gitlab.com/api/v4/projects/31744272/terraform/state/infra-k8s-azure/lock"
+      address="https://" #address for remote state in https backend
+      lock_address="https://" #lock address for remote state in https backend - add /lock to end
+      unlock_address="https://" #unlock address for remote state in https backend - add /lock to end
       lock_method="POST"
       
       unlock_method="DELETE"
@@ -28,7 +28,7 @@ provider "azurerm" {
     features {}
     
     alias = "remote"
-    subscription_id = "12f662e5-cbb1-4682-ab8e-69a387542c77"
+    subscription_id = "" #subscription ID that will be remote from this project
    
 }
 
@@ -36,10 +36,10 @@ provider "azurerm" {
   features {}
 
   
-  subscription_id = "8c99c5b5-3384-4bb3-ba5b-f8e259bd2170"   #k8s sub
+  subscription_id = ""   #subscription id that will be local to this project
 
 }
 
 provider "azuread" {
-  tenant_id = "bd0c095f-5d66-4273-a209-64796ae91974"
+  tenant_id = "" #tenant id for azure ad 
 }
