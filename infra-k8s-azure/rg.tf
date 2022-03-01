@@ -1,7 +1,7 @@
 module "rg" {
  
-  source  = "gitlab.com/zywave/terraform/rg"
-  version = "1.0.0-rc.46"
+  source  = #"path to module in registry/rg"
+  version = #"version-number-of-module.46"
   
   #modification may be needed if the module has changed since last update
   #input vars - tags, location below here

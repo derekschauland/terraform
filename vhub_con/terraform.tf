@@ -1,8 +1,8 @@
 terraform {
     backend "http" {
-      address="https://gitlab.com/api/v4/projects/#########/terraform/state/infra-k8s-azure"
-      lock_address="https://gitlab.com/api/v4/projects/#########/terraform/state/infra-k8s-azure/lock"
-      unlock_address="https://gitlab.com/api/v4/projects/########/terraform/state/infra-k8s-azure/lock"
+      address="https://<path-to-state>.com/api/v4/projects/#########/terraform/state/{ProjectName}"
+      lock_address="https://<path-to-state>.com/api/v4/projects/#########/terraform/state/{ProjectName}/lock"
+      unlock_address="https://<path-to-state>.com/api/v4/projects/########/terraform/state/{ProjectName}/lock"
       lock_method="POST"
       
       unlock_method="DELETE"

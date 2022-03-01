@@ -1,8 +1,6 @@
 module "vnet" {
-  #old source = "gitlab.zywave.com/devsecops/terraform/vnet"
-  #old version = "1.0.0-rc.13"
-  source = "gitlab.com/zywave/terraform/vnet"
-  version = "1.0.0-rc.15"
+  source = #"path to module in registry/vnet"
+  version = #"version-number-of-module.15"
 
     #tags for Modules
     tag_alt_product         = var.tag_alt_product

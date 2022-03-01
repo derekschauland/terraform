@@ -65,9 +65,9 @@ You will need to know the project id for the project containing the terraform co
 
 An example config can be seen below:
 ```
-address="https://gitlab.zywave.com/api/v4/projects/{ProjectID}/terraform/state/{repo name}"
-lock_address="https://gitlab.zywave.com/api/v4/projects/4040/terraform/state/infra-k8s-azure/lock"
-unlock_address="https://gitlab.zywave.com/api/v4/projects/4040/terraform/state/infra-k8s-azure/lock"
+address="https://<path-to-state>-url/api/v4/projects/{ProjectID}/terraform/state/{repo name}"
+lock_address="https://<path-to-state>-url/api/v4/projects/{ProjectID}/terraform/state/{ProjectName}/lock"
+unlock_address="https://<path-to-state>url/api/v4/projects/{projectID}/terraform/state/{ProjectName}/lock"
 username="your gitlab username should be used for this" 
 password= "a project token should be used for this" 
 lock_method="POST"
@@ -92,9 +92,9 @@ If you are so inclined, you can also pass all of the values above at the command
 
 ```
 terraform init \
-    -backend-config="address=https://gitlab.com/api/v4/projects/<YOUR-PROJECT-ID>/terraform/state/<YOUR-STATE-NAME>" \
-    -backend-config="lock_address=https://gitlab.com/api/v4/projects/<YOUR-PROJECT-ID>/terraform/state/<YOUR-STATE-NAME>/lock" \
-    -backend-config="unlock_address=https://gitlab.com/api/v4/projects/<YOUR-PROJECT-ID>/terraform/state/<YOUR-STATE-NAME>/lock" \
+    -backend-config="address=https://<path-to-state>.com/api/v4/projects/<YOUR-PROJECT-ID>/terraform/state/<YOUR-STATE-NAME>" \
+    -backend-config="lock_address=https://<path-to-state>.com/api/v4/projects/<YOUR-PROJECT-ID>/terraform/state/<YOUR-STATE-NAME>/lock" \
+    -backend-config="unlock_address=https://<path-to-state>.com/api/v4/projects/<YOUR-PROJECT-ID>/terraform/state/<YOUR-STATE-NAME>/lock" \
     -backend-config="username=<YOUR-USERNAME>" \
     -backend-config="password=<YOUR-ACCESS-TOKEN>" \
     -backend-config="lock_method=POST" \

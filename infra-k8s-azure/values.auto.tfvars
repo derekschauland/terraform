@@ -1,24 +1,25 @@
 ##############################################################
 #                         Tagging Vars                       #
 ##############################################################
-tag_created_by                    = "derek_schauland"
-tag_subscription                  = "devsecops (Development)"
-tag_env                           = "dev"
-tag_product                       = "tools"
-tag_alt_product                   = "devsecops-tools"
-tag_team_assigned                 = "devsecops"
+source_url                  = "url to project repo"
+subscription_name                  = "azure sub name"
+team_name                 = "team name"
 
+namespace = "name space for resources"
+environment = "environment"
+resource_name = "schauland"
 
 ##############################################################
 #                         General and K8s Vars               #
 ##############################################################
 rg_location                       = "centralus"
-shared_resource_groups            = ["devsecops"]
+
 
 k8s_sku = "Free"
 
+
 bool_k8s_iag_enabled  = true
-k8s_node_disk_size = 128
+k8s_node_disk_size = 60
 enable_azure_policy = true
 
 enable_private_cluster = true
@@ -37,8 +38,8 @@ k8s_pod_scaledown_unneeded = "5m"
 k8s_pod_scaledown_unready = "10m"
 k8s_pod_scan_interval = "15s"
 
-acr_name = "zywavedevregistry" # not managed here - just a reference
-acr_rg = "zywavedev-registry-centralus-rg" # change to local - fix in container reg project
+acr_name = "containerdevregistry" # not managed here - just a reference
+acr_rg = "container-registry-centralus-rg" # change to local - fix in container reg project
 
 k8s_keyvault_secrets_enabled = true
 k8s_keyvault_secret_rotation_enabled = true
@@ -48,9 +49,8 @@ k8s_keyvault_secret_rotation_interval = "3m"
 #                         K8s Permissions Vars               #
 ##############################################################
 enable_k8s_permissions = true
-k8s_rbac_admin_group_name = "Team - DevSecOps"
-#k8s_cluster_permissions_assignment = "3689b6dd-e9b9-48aa-9903-8d23750890b0"
-aad_user_or_group_objectIDs = ["3689b6dd-e9b9-48aa-9903-8d23750890b0"]
+k8s_cluster_permissions_assignment = ["azure ad object id to assign permissions for"]
+aad_user_or_group_objectIDs = ["azure ad object id for permissions assignment "]
 
 ##############################################################
 #                         AutoScale Vars                     #
@@ -58,7 +58,7 @@ aad_user_or_group_objectIDs = ["3689b6dd-e9b9-48aa-9903-8d23750890b0"]
 use_auto_scale = true
 auto_scale_min_nodes = 2
 auto_scale_max_nodes = 10
-auto_scale_node_vm_size = "Standard_D2_v5"
+auto_scale_node_vm_size = "Standard_D2_V5"
 
 ##############################################################
 #                         Key Vault Vars                     #
@@ -82,27 +82,10 @@ secrets = {
 using_sql = true #keyvault for pwd
 
 
-sql_fwrules = {
-  "rule_1" = {
-    start_ip = "172.20.4.5"
-    end_ip = "172.20.4.250"
-  },
-  "dshome_1" = {
-    start_ip = "75.87.195.215"
-    end_ip = "75.87.195.215"
-  },
-  "devsql_1" = {
-    start_ip = "209.188.107.42"
-    end_ip = "209.188.107.42"
-  }
-}
-
-  
-
   az_sql_server_version                                   = "12.0"
   az_sql_tls_version                                      = "1.2"
-  az_sql_aad_admin_user                                   = "derek schauland" #user or group name that be the admin
-  az_sql_aad_admin_objectid                               = "3689b6dd-e9b9-48aa-9903-8d23750890b0" #user or group object id for the admin - not sure if name and obj are needed
+  az_sql_aad_admin_user                                   = "azure sql admin user/group" #user or group name that be the admin
+  az_sql_aad_admin_objectid                               = "3689b###-####-####-####-########0b0" #user or group object id for the admin - not sure if name and obj are needed
   az_sql_aad_only_login_enabled                           = false
 
   az_sql_public_access_enabled                            = true
@@ -121,7 +104,7 @@ sql_fwrules = {
   az_sql_db_threat_detection_enabled                      = true
   az_sql_db_threat_alerts_skipped                         = [] #list of items to skip
   az_sql_db_threat_detect_email_admins_enabled            = false
-  az_sql_db_threat_email_addresses                        = ["derek.schauland@zywave.com"] #list of email addresses to send threat stuff
+  az_sql_db_threat_email_addresses                        = ["email address used to blast people"] #list of email addresses to send threat stuff
   az_sql_db_threat_retention_days                         = 7
   
   az_sql_db_weekly_retention                              = "P7D" #ISO 8601 formatted retention weeks
@@ -135,11 +118,14 @@ sql_fwrules = {
   az_sql_db_audit_enabled                                 = true
  
   az_sql_audit_retention_days                             = 10
+  az_fw_start_ips = ["172.20.4.5", "192.168.195.215", "192.168.107.42"]
+  az_fw_end_ips = ["172.20.4.250","192.168.195.215", "192.168.107.42"]
+  
 
 ##############################################################
 #                         Storage Vars                       #
 ############################################################## 
-storage_account_name = "zywavedsosa"
+storage_account_name = "storageaccountnamesa"
 storage_tier="Standard"
 storage_replication="LRS"
 storage_kind="StorageV2"
@@ -153,42 +139,18 @@ files_enabled_protocol = "SMB"
 ##############################################################
 #                         Networking Vars                    #
 ##############################################################
-vnet_address_spaces = ["172.20.4.0/22"] #should be different from hub stuff
+vnet_address_spaces = ["172.20.4.0/22"] #should be unique for each spoke
 
+subnet_cidr = ["172.20.5.0/24", "172.20.6.0/23"] #please put smaller subnet first - will be used by app gw ingress
 
-subnets = {
-  "devsecops-dev-ingress-gw" = {
-    cidr = ["172.20.5.0/24"] #put inside new addr space
-    service_delegation = false
-  },
-  "devsecops-dev-pods-subnet" = {
-    cidr = ["172.20.6.0/23"]
-    service_delegation = false
-  }
-} 
-
-k8s_docker_bridge_ip = "10.42.0.11/32"
-k8s_dns_service_ip = "10.42.0.10"
-k8s_service_cidr = "10.42.0.0/16"
-
-#bastion_name = "zywave-dso-bastion"
-#bastion_pip_name = "zywave-bastion-pip"
-#bastion_sku = "Standard"
-#pip_allocation_method = "Static"
-#pip_sku = "Standard"
-#pip_sku_tier = "Regional"
-
-#Delete me project_vnet_name = "dso-dev-dsotools-centralus-vnet" #"edge-net-dev-hub-centralus-vnet"# # hub resources 
-#Delete me project_vnet_rg = "dso-dev-dsotools-centralus-rg"#"edge-net-dev-hub-vnet-centralus-rg"# #hub resources
-#Delete me 
-#Delete Me vhub_conn_name = ["devsecops-dev-to-hub-test-peer"]
-#Delete Me remote_vhub_name = "dev-edge-hub"
-#Delete Me remote_vhub_rg = "dev-hub-vnet-centralus-rg"
+#k8s_docker_bridge_ip = "10.42.0.11/32"
+#k8s_dns_service_ip = "10.42.0.10"
+#k8s_service_cidr = "10.42.0.0/16"
 
 ##############################################################
 #                         LogAnalytics Vars                  #
 ##############################################################
-  log_analytics_workspace_name = "devsecops-aks-la"
+  log_analytics_workspace_name = "namespace-aks-la"
   log_analytics_workspace_sku = "PerGB2018"
   log_analytics_workspace_retention_days = 30
   log_analytics_workspace_daily_quota_gb = 1

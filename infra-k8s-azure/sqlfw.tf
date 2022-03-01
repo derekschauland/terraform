@@ -1,6 +1,6 @@
 module "sqlfw" {
-  source = "gitlab.com/zywave/terraform/sqlfirewall"
-  version = "1.0.0-rc.7"
+  source = #"path to module in registry/sqlfirewall"
+  version = #"version-number-of-module.7"
 
   for_each                  = var.sql_fwrules
   az_sql_firewall_rule_name = each.key

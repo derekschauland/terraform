@@ -1,9 +1,6 @@
 module "k8s_cluster" {
-  #old source = "gitlab.zywave.com/devsecops/terraform/k8scluster"
-  #old version = "1.0.0-rc.48"
-  source = "gitlab.com/zywave/terraform/k8scluster"
-  version = "1.0.0-rc.118"
-  #source = "git::ssh://git@gitlab.zywave.com:/schauland/terraform-azurerm-k8scluster.git"
+  source = #"path to module in registry/k8scluster"
+  version = #"version-number-of-module.118"
 
    k8s_name                               = local.k8s_name
    k8s_location                           = module.rg.rg_location

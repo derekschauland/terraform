@@ -1,35 +1,40 @@
-variable "tag_subscription" {
+variable "subscription_name" {
     description = "The Azure Subsctiption name"
     default = ""
-}
+ }
 
-variable "tag_env" {
+variable "environment" {
     description = "The Environment where this resource will be used (Dev/Test/Sandbox/Prod)"
     default = ""
-}
+    }
 
-variable "tag_product" {
-    description = "The Active Coterie product name this resource will be used with"
+variable "source_url" {
+    description = "The url of the repo creating this resource"
     default = ""
-}
-
-variable "tag_created_by" {
-    description = "The name of the user who is creating this resource"
-    default = ""
-}
-
-variable "tag_alt_product" {
-    description = "the Alternate Coterie Product name for the product this reesource will be used with (ie. BOP20 vs RatingEngine)"
-    default = ""
-}
+    }
 
 variable "tag_creation_method" {
     description = "the method used to create this resource"
     default = "terraform"
-}
+    }
 
+variable "team_name" {
+    description = "the team that will be using this resource"
+    default = ""
+    }
 variable "tag_team_assigned" {
     description = "the team that will be using this resource"
+    default = ""
+}
+
+variable "namespace" {
+    description = "the namespace for this resource"
+    default = ""
+}
+
+
+variable "resource_name" {
+    description = "the name of this resource"
     default = ""
 }
 variable "rg_location" {
@@ -218,9 +223,9 @@ variable "enable_k8s_permissions" {
 }
 
 variable "k8s_cluster_permissions_assignment" {
-    type = string
+    type = list(string)
     description = "what user or group object ids should be assigned permissions "
-    default = ""
+    default = [""]
 }
 
 variable "storage_tier" {
@@ -269,15 +274,11 @@ variable "subnet_name" {
     default = ""
 }
 
-variable "subnets" {
-    type = map(object({
-
-        cidr = list(string)
-
-    }))
-    description = "enter the map description"
-    }
-
+variable "subnet_cidr" {
+    type = list(string)
+    description = "The cidrs for subnets  - can be one or more"
+    default = []
+}
 variable "max_pods_per_node" {
     type = number
     description = "how many pods per cluster node?"
@@ -600,41 +601,31 @@ variable "k8s_keyvault_secret_rotation_interval" {
 
 variable "k8s_docker_bridge_ip" {
     description = "the docker bridge ip address - should be /32"
-    default = ""
+    default = "10.42.0.11/32"
 }
 
 variable "k8s_dns_service_ip" {
     description = "the ranges for DNS - can be one or more"
-    default = ""
+    default = "10.42.0.10"
 }
 
 variable "k8s_service_cidr" {
     description = "an IP for the k8s service"
-    default = ""
+    default = "10.42.0.0/16"
 }
-variable "bastion_name" {
-    description = "name for the bastion host"
-    default = ""
-}
-variable "bastion_pip_name" {
-    description = "name for bastion host public_ip"
-    default = ""
-}
-
-variable "bastion_sku" {
-    description = "Which Sku should this bastion host use - standard or basic"
-    default = ""
-}
-
-variable "sql_fwrules" {
-    type = map(object({
-
-        start_ip = string
-        end_ip = string
-
-    }))
-    description = "enter the map description"
-    }
+#variable "bastion_name" {
+#    description = "name for the bastion host"
+#    default = ""
+#}
+#variable "bastion_pip_name" {
+#    description = "name for bastion host public_ip"
+#    default = ""
+#}
+#
+#variable "bastion_sku" {
+#    description = "Which Sku should this bastion host use - standard or basic"
+#    default = ""
+#}
 
 variable "az_sql_name" {
     description = "the name of the SQL server being provisioned"
@@ -798,7 +789,14 @@ variable "az_sql_audit_retention_days" {
     default = 30
 }
 
-variable "k8s_rbac_admin_group_name" {
-    description = "admin group name"
-    default = ""
+variable "az_fw_start_ips" {
+    type = list(string)
+    description = "The names of the things you are building services for - can be one or more"
+    default = [""]
+}
+
+variable "az_fw_end_ips" {
+    type = list(string)
+    description = "The names of the things you are building services for - can be one or more"
+    default = [""]
 }

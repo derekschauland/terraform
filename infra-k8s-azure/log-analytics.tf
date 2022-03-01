@@ -1,6 +1,6 @@
 module "la" {
-  source = "gitlab.com/zywave/terraform/loganalytics"
-  version = "1.0.0-rc.5"
+  source = #"path to module in registry/loganalytics"
+  version = #"version-number-of-module.5"
 
   name                                  = var.log_analytics_workspace_name
   resource_group_name                   = module.rg.rg_name

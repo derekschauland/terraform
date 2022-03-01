@@ -1,6 +1,6 @@
 module "storage" {
-  source = "gitlab.com/zywave/terraform/storage"
-  version = "1.0.0-rc.45"
+  source = #"path to module in registry/storage"
+  version = #"version-number-of-module.45"
 
   storage_account_name                       = local.storage_account_name
   resource_group_name        = module.rg.rg_name

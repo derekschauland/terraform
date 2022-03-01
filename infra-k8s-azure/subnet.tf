@@ -1,7 +1,7 @@
 # this controls the azure subnet resource
 module "subnet" {
-  source = "gitlab.com/zywave/terraform/subnet"
-  version = "1.0.0-rc.13"
+  source = #"path to module in registry/subnet"
+  version = #"version-number-of-module.13"
 
     for_each =  var.subnets
     subnet_name = each.key

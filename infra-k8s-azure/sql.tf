@@ -1,6 +1,6 @@
 module "az_sql" {
-  source = "gitlab.com/zywave/terraform/sql"
-  version = "1.0.0-rc.19"
+  source = #"path to module in registry/sql"
+  version = #"version-number-of-module.19"
 
   az_sql_name                                           = local.az_sql_name 
   az_sql_resource_group_name                            = module.rg.rg_name

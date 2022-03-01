@@ -30,7 +30,7 @@ output "current_sub" {
 module "vhubcon_remote" {
   
   source = "#########"
-  version = "1.0.0-rc.21"
+  version = #"version-number-of-module.21"
   providers = {
     azurerm.vhubcon = azurerm.remote
     

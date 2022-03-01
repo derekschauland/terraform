@@ -1,6 +1,6 @@
 module "kvsecret" {
-    source = "gitlab.com/zywave/terraform/kvsecret"
-    version = "1.0.0-rc.56"
+    source = #"path to module in registry/kvsecret"
+    version = #"version-number-of-module.56"
 
     #tags for Modules
         tag_alt_product         = var.tag_alt_product
